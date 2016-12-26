@@ -26,6 +26,7 @@ ENV IGNITE_HOME /opt/ignite/apache-ignite-fabric-${IGNITE_VERSION}-bin
 
 # Do not rely on anything provided by base image(s), but be explicit, if they are installed already it is noop then
 RUN apk add --no-cache \
+		bash \
 		curl \
 		unzip
 
