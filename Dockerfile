@@ -25,16 +25,15 @@ ENV IGNITE_VERSION 1.8.0
 ENV IGNITE_HOME /opt/ignite/apache-ignite-fabric-${IGNITE_VERSION}-bin
 
 # Do not rely on anything provided by base image(s), but be explicit, if they are installed already it is noop then
-RUN apk add --no-cache \
-		bash \
-		curl \
-		unzip
+
 
 WORKDIR /opt/ignite
 
-RUN curl -s http://www.us.apache.org/dist/ignite/${IGNITE_VERSION}/apache-ignite-fabric-${IGNITE_VERSION}-bin.zip -o ignite.zip \
-    && unzip -qq ignite.zip \
-    && rm ignite.zip
+RUN apk add --no-cache bash curl unzip \
+	&& curl -s http://www.us.apache.org/dist/ignite/${IGNITE_VERSION}/apache-ignite-fabric-${IGNITE_VERSION}-bin.zip -o ignite.zip \
+	&& unzip -qq ignite.zip \
+	&& rm ignite.zip \
+	&& apk del --no-cache
 
 # Copy sh files and set permission
 RUN curl -s https://raw.githubusercontent.com/ntikhonov/ignite/master/modules/docker/run.sh -o $IGNITE_HOME/run.sh
